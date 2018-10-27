@@ -13,6 +13,7 @@ module.exports = {
       '/honghe': {
         target: 'http://bcs.hitevision.com',
         // secure: false
+        changeOrigin: true,
         pathRewrite: {'^/honghe' : ''}
       }
     },
