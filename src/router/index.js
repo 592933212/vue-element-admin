@@ -86,7 +86,12 @@ export const constantRouterMap = [
         path: 'organmazation',
         component: () => import('@/views/organmazation/index'),
         name: 'Organmazation',
-        meta: { title: '组织结构', icon: 'null', noCache: true }
+        meta: { title: '组织结构', icon: 'null', noCache: true },
+        children: [{
+          path: 'beibei',
+          component: () => import('@/views/organmazation/children'),
+          name: 'Beibei'
+        }]
       },
       {
         path: 'management',
@@ -167,18 +172,18 @@ export const asyncRouterMap = [
     ]
   },
 
-  {
-    path: '/icon',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/svg-icons/index'),
-        name: 'Icons',
-        meta: { title: 'icons', icon: 'icon', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/icon',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/svg-icons/index'),
+  //       name: 'Icons',
+  //       meta: { title: 'icons', icon: 'icon', noCache: true }
+  //     }
+  //   ]
+  // },
 
   /** When your routing table is too long, you can split it into small modules**/
   componentsRouter,

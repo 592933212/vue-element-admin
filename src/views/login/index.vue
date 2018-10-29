@@ -90,7 +90,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '123456'
+        password: '111111'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -128,13 +128,12 @@ export default {
     goLogin() {
       const { username, password } = this.loginForm
       const data = {
-        mobile: username,
+        username,
         password,
         platform: 'PC'
       }
       Login(data).then(res => {
         console.log('res: ', res)
-
         const token = res.data.token.token
         this.$store.commit('SET_TOKEN', token)
         setToken(token)
@@ -144,6 +143,25 @@ export default {
         console.log('用户名密码不正确')
       })
     },
+    // goLogin() {
+    //   const { username, password } = this.loginForm
+    //   const data = {
+    //     mobile: username,
+    //     password,
+    //     platform: 'PC'
+    //   }
+    //   Login(data).then(res => {
+    //     console.log('res: ', res)
+
+    //     const token = res.data.token.token
+    //     this.$store.commit('SET_TOKEN', token)
+    //     setToken(token)
+
+    //     this.$router.push('/')
+    //   }).catch(() => {
+    //     console.log('用户名密码不正确')
+    //   })
+    // },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {

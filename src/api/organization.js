@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 import qs from 'qs'
 
-export function Login({ mobile, password, platform }) {
+export function Login({ username, password, platform }) {
   const data = {
-    mobile,
+    username,
     password,
     platform
   }

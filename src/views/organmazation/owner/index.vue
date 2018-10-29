@@ -9,8 +9,8 @@
     <el-tabs v-model="activeName" type="card">
       <el-tab-pane label="组织结构" name="first">
         <el-row>
-          <el-col :span="6" style="border-left: 1px solid #ddd; border-right: 1px solid #ddd">
-            <el-tree :data="datatree" :default-expanded-keys="[1]" node-key="id" class="datatree"/>
+          <el-col v-show="!userRouterData" :span="6" style="border-left: 1px solid #ddd; border-right: 1px solid #ddd">
+            <el-tree :data="datatree" :default-expanded-keys="[1]" node-key="id" class="datatree" @node-click="getRouter(data, node, oneself)"/>
           </el-col>
           <el-col :span="15">
             <el-form label-width="80px" style="width: 50%; margin-left: auto; margin-right: auto; margin-top: 50px; ">
@@ -83,6 +83,7 @@ export default {
       companyName: '鸿合科技2',
       activeName: 'first',
       custom: 'customAll',
+      userRouterData: false,
       datatree: [{
         id: 1,
         label: '鸿合科技2',
@@ -238,7 +239,7 @@ export default {
     }
   },
   created() {
-    console.log(axios)
+    console.log('this: ', this)
     axios.get('http://api.haomo-studio.com/org/swagger-ui.html#/department-type-controller')
       .then(function(data) {
         console.log('data: ', data)
@@ -246,6 +247,18 @@ export default {
       .catch(function(err) {
         console.log('err: ', err)
       })
+  },
+  methods: {
+    getRouter(data, node, oneself) {
+      console.log('data, node, oneself: ', data, node, oneself)
+      // this.$router.push({ path: '/' })
+    }
+    // getData() {
+    //   request({
+    //     url: '/honghe/v1/departments',
+    //     method: 'get'
+    //   })
+    // }
   }
 }
 </script>
