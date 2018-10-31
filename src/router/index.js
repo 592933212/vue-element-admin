@@ -86,18 +86,18 @@ export const constantRouterMap = [
         path: 'organmazation',
         component: () => import('@/views/organmazation/index'),
         name: 'Organmazation',
-        meta: { title: '组织结构', icon: 'null', noCache: true },
-        children: [{
-          path: 'beibei',
-          component: () => import('@/views/organmazation/children'),
-          name: 'Beibei'
-        }]
+        meta: { title: '组织结构', icon: 'null', noCache: true }
+        // children: [{
+        //   path: ':team',
+        //   component: () => import('@/views/organmazation/children'),
+        //   name: 'Beibei'
+        // }]
       },
       {
         path: 'management',
         component: () => import('@/views/management/index'),
         name: 'Management',
-        meta: { title: '角色管理', icon: 'null', noCache: true }
+        meta: { title: '数据可视化', icon: 'null', noCache: true }
       }
     ]
   },

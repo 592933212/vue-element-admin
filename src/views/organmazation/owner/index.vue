@@ -5,19 +5,24 @@
         <span>组织结构</span>
       </div>
     </el-card>
-
     <el-tabs v-model="activeName" type="card">
       <el-tab-pane label="组织结构" name="first">
         <el-row>
           <el-col v-show="!userRouterData" :span="6" style="border-left: 1px solid #ddd; border-right: 1px solid #ddd">
-            <el-tree :data="datatree" :default-expanded-keys="[1]" node-key="id" class="datatree" @node-click="getRouter(data, node, oneself)"/>
+            <el-tree :data="datatree" :default-expanded-keys="[10001]" :default-checked-keys="[10002]" accordion node-key="number" class="datatree" @node-click="getRouter"/>
           </el-col>
           <el-col :span="15">
             <el-form label-width="80px" style="width: 50%; margin-left: auto; margin-right: auto; margin-top: 50px; ">
               <el-form-item label="名称*">
-                <el-input v-model="companyName"/>
-                <el-button style="margin-top: 20px;">保存</el-button>
+                <el-input v-model="dataTreeNode"/>
               </el-form-item>
+              <el-form-item label="编号*">
+                <el-input v-model="dataTreeNumber"/>
+              </el-form-item>
+              <el-form-item label="上级*">
+                <el-input v-model="parentNode"/>
+              </el-form-item>
+              <el-button style="margin-top: 20px;">保存</el-button>
             </el-form>
           </el-col>
         </el-row>
@@ -64,13 +69,6 @@
         </el-tabs>
       </el-tab-pane>
     </el-tabs>
-
-    <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
-			<el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
-			<el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-			<el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-			<el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
-		</el-tabs> -->
   </div>
 </template>
 
@@ -80,159 +78,46 @@ export default {
   name: 'Organmazation',
   data() {
     return {
+      dataTreeNode: '',
+      dataTreeNumber: '',
+      parentNode: '',
       companyName: '鸿合科技2',
       activeName: 'first',
       custom: 'customAll',
       userRouterData: false,
       datatree: [{
-        id: 1,
+        number: 10001,
         label: '鸿合科技2',
         children: [{
-          label: '北北大区'
+          label: '北北大区',
+          number: 10002
         }, {
           label: '鸿合科技-信息部',
+          number: 10003,
           children: [{
             label: '鸿合科技信息部',
+            number: 10004,
             children: [{
-              label: 'flag'
+              label: 'flag',
+              number: 10005
             }]
           }, {
-            label: '123'
+            label: '123',
+            number: 10006
           }]
         }, {
           label: '鸿合科技-财务部',
+          number: 10007,
           children: [{
             label: '鸿合科技财务部',
+            number: 10008,
             children: [{
-              label: '123'
+              label: '123',
+              number: 10009
             }, {
-              label: '123'
+              label: '456',
+              number: 10010
             }]
-          }]
-        }, {
-          label: '鸿合创新-营销中心',
-          children: [{
-            label: '鸿合创新教育平板事业部'
-          }, {
-            label: '鸿合创新商用平板事业部'
-          }, {
-            label: '鸿合创新投影平板事业部'
-          }, {
-            label: '鸿合创新综合管理部'
-          }]
-        }, {
-          label: '鸿合嘉华-营销中心',
-          children: [{
-            label: '鸿合嘉华商用显示事业部'
-          }, {
-            label: '鸿合嘉华工程投影事业部'
-          }]
-        }, {
-          label: '鸿合智能-营销中心',
-          children: [{
-            label: '鸿合智能综合管理部'
-          }, {
-            label: '鸿合智能录播事业部'
-          }, {
-            label: '鸿合智能工程产品事业部'
-          }, {
-            label: '鸿合智能展台事业部'
-          }]
-        }, {
-          label: '东北大区',
-          children: [{
-            label: '哈尔滨分支'
-          }, {
-            label: '沈阳分支'
-          }, {
-            label: '大连分支'
-          }, {
-            label: '长春分支'
-          }]
-        }, {
-          label: '西北大区',
-          children: [{
-            label: '西安分支'
-          }, {
-            label: '乌鲁木齐分支'
-          }, {
-            label: '兰州分支'
-          }, {
-            label: '银川分支'
-          }, {
-            label: '太原分支'
-          }]
-        }, {
-          label: '西南大区',
-          children: [{
-            label: '成都分支'
-          }, {
-            label: '重庆分支'
-          }, {
-            label: '昆明分支'
-          }, {
-            label: '贵阳分支'
-          }]
-        }, {
-          label: '鲁豫大区',
-          children: [{
-            label: '郑州分支'
-          }, {
-            label: '济南分支'
-          }, {
-            label: '青岛分支'
-          }]
-        }, {
-          label: '华北大区',
-          children: [{
-            label: '北京分支'
-          }, {
-            label: '天津分支'
-          }, {
-            label: '石家庄分支'
-          }, {
-            label: '呼和浩特分支'
-          }]
-        }, {
-          label: '华中大区',
-          children: [{
-            label: '武汉分支'
-          }, {
-            label: '长沙分支'
-          }]
-        }, {
-          label: '浙沪赣大区',
-          children: [{
-            label: '上海分支'
-          }, {
-            label: '南昌分支'
-          }, {
-            label: '杭州分支'
-          }]
-        }, {
-          label: '华南大区',
-          children: [{
-            label: '福州分支'
-          }, {
-            label: '南宁分支'
-          }, {
-            label: '广州分支'
-          }, {
-            label: '深圳分支'
-          }]
-        }, {
-          label: '苏皖大区',
-          children: [{
-            label: '南京分支'
-          }, {
-            label: '苏州分支'
-          }, {
-            label: '合肥分支'
-          }]
-        }, {
-          label: '合作物流',
-          children: [{
-            label: '合作物流'
           }]
         }]
       }]
@@ -248,10 +133,18 @@ export default {
         console.log('err: ', err)
       })
   },
+  mounted() {
+    // this.$router.push({name: 'Beibei'})
+  },
   methods: {
     getRouter(data, node, oneself) {
-      console.log('data, node, oneself: ', data, node, oneself)
-      // this.$router.push({ path: '/' })
+      console.log('node: ', node)
+      this.dataTreeNode = node.data.label // 名称
+      this.dataTreeNumber = node.data.number // 编号
+      this.parentNode = node.parent.data.label // 上级
+      // this.$route.params.team = this.dataTreeNumber // 编号
+      // this.$router.push( '/organmazation/'+ this.dataTreeNumber)
+      // console.log('this.$route: ', this.$route)
     }
     // getData() {
     //   request({
